@@ -16,6 +16,7 @@
 #include <sstream>
 #include <fstream>
 #include <algorithm>
+#include <cctype>
 #include <stdlib.h>
 
 //-- private headers -----------------------------------------------------
@@ -32,12 +33,13 @@ typedef struct selector
 {
 public:
 	uint32_t m_start = 0;
-	uint32_t m_stop = 0;
+	uint32_t m_stop = 0xFFFFFFFF;
 	std::string m_description = "";
 }selector;
 
 
 //-- private functions --------- declarations ----------------------------
+bool is_number(const std::string& s);
 
 //-- private global variables -- definitions (should be empty) -----------
 
@@ -96,46 +98,43 @@ positionFilter::addSelectors
 			{
 				cols.push_back(cell);
 			}
+            if (cols.size() < 1 || cols.size() > 4)
+                continue;
 			selector sel;
-			if (cols.size() == 2)		// ref and start
-			{
-				try
-				{
-					sel.m_start = std::stoi(cols[1]);
-					sel.m_stop = sel.m_start;
-					sel.m_description = cols[0] + "_" +
+            std::string key = cols[0];
+            try
+            {
+                if (cols.size() > 1)
+                {
+                    if (is_number(cols[1]))
+                        sel.m_start = std::stoi(cols[1]);
+                    else
+                        sel.m_description = cols[1];
+                }
+                if (cols.size() > 2)
+                {
+                    if (is_number(cols[2]))
+                        sel.m_stop = std::stoi(cols[2]);
+                    else
+                    {
+                        sel.m_stop = sel.m_start;
+                        sel.m_description = cols[2];
+                    }
+                }
+            }
+            catch(...)
+            {
+                // no handling, ignore line
+                continue;
+            }
+            if (cols.size() > 3)
+                sel.m_description = cols[3];
+            else if (sel.m_description == "")
+                sel.m_description = key + "_" +
 										std::to_string(sel.m_start) + "_" +
 										std::to_string(sel.m_stop);
-				}
-				catch (std::exception e)
-				{
-					// no handling, just ignore line
-					continue;
-				}
-				m_selectors[cols[0]].push_back(sel);
-				parsedSelectors++;
-			}
-			else if (cols.size() == 3)	// ref, start and stop
-			{
-				try
-				{
-					sel.m_start = std::stoi(cols[1]);
-					sel.m_stop = std::stoi(cols[2]);
-					sel.m_description = cols[0] + "_" +
-										std::to_string(sel.m_start) + "_" +
-										std::to_string(sel.m_stop);
-				}
-				catch (std::exception e)
-				{
-					// no handling, just ignore line
-					continue;
-				}
-				if (sel.m_start <= sel.m_stop)
-				{
-					m_selectors[cols[0]].push_back(sel);
-					parsedSelectors++;
-				}
-			}
+            m_selectors[key].push_back(sel);
+            parsedSelectors++;
 		}
 	}
 	// sort selector map entries by end position
@@ -225,3 +224,15 @@ positionFilter::match
 
 
 //-- private functions --------- definitions -----------------------------
+bool 
+is_number
+(
+    const std::string& s
+)
+{
+    // http://ideone.com/OjVJWh
+    return !s.empty() && std::all_of(s.begin(), s.end(), ::isdigit);
+}
+
+
+

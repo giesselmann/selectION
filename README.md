@@ -63,7 +63,9 @@ The syntax for the roi.txt is as follows. You can specifiy as many selectors as 
     X;67542032
     # region of interest
     X;67542032;67732619
+    # with custom name (default: X_146993569_146993569)
+    X;146993569;146993569;FMR1
 
-For either a complete chromosome, a specific spot or a region defined by start and stop. The naming of the chromosome must match the spelling in the reference e.g. _chrX_ is not equal to _X_!
+For either a complete chromosome, a specific spot or a region defined by start and stop. Last column may contain a custom name to use for the output files. The naming of the chromosome must match the spelling in the reference e.g. _chrX_ is not equal to _X_!
 
 Support for input _fast5_ files is coming soon, for the moment we recommend using poretools to extract basecalled sequences from ONT _fast5_ files.
