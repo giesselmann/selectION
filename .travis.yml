@@ -4,7 +4,7 @@ language: cpp
 
 before_script:
     - sudo apt-get -qq update
-    - sudo apt-get install -y libboost-filesystem1.46-dev libboost-program-options1.46-dev libboost-system1.46-dev
+    - sudo apt-get install -y libboost-filesystem-dev libboost-program-options-dev libboost-system-dev
     
 script: 
     - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
