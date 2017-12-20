@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 
 project(selection)
-
+set (CMAKE_CXX_STANDARD 14)
 # required for unit testing using CMake's ctest command
 include(CTest)
 enable_testing()
