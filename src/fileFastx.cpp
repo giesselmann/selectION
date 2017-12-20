@@ -42,9 +42,8 @@ std::ifstream::pos_type filesize(std::string filename);
 fileFastx::fileFastx
 (
 	std::string filePath
-) :fileBase(filePath)
+) :fileBase(filePath), m_fileStream(std::ifstream(normPath()))
 {
-	m_fileStream = std::ifstream(normPath());
 	if (m_fileStream.good())
 	{
 		const auto ext = extension();
