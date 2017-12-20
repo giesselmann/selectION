@@ -4,8 +4,9 @@ language: cpp
 
 before_script:
     - sudo apt-get -qq update
+    - sudo apt-get install -qq g++-5.3
     - sudo apt-get install -y libboost-filesystem-dev libboost-program-options-dev libboost-system-dev
     
 script: 
-    - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
+    - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-5.3 .. && make
     - src/selection

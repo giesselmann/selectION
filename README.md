@@ -1,8 +1,11 @@
 # selectION
+[![Build Status](https://travis-ci.org/giesselmann/selectION.svg?branch=master)](https://travis-ci.org/giesselmann/selectION)
+
+https://travis-ci.org/giesselmann/selectION.svg?branch=master
 Rapid linking of long reads to a reference genome
 
 ### Dependencies
-Selection is written in C++11 and requires the following libraries:
+Selection is written in C++11 requires gcc > 5 and the following libraries:
 
 * boost filesystem
 * boost program_options
