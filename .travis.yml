@@ -1,0 +1,7 @@
+# travis.yml for https://github.com/giesselmann/selectION
+
+language: cpp
+
+script: 
+    - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
+    - src/selection

@@ -1,9 +1,9 @@
 set(HDF5_PREFIX hdf5)
 # download hdf5 lib
-set(HDF5_URL https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.14/src/hdf5-1.8.14.tar.gz)
+set(HDF5_URL https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.gz )
 # alternatively use manually downloaded source
 #set(HDF5_URL ${CMAKE_SOURCE_DIR}/thirdparty/hdf5-1.8.14.tar.gz)
-set(HDF5_URL_MD5 a482686e733514a51cde12d6fe5c5d95)
+set(HDF5_URL_MD5 43a2f9466702fb1db31df98ae6677f15)
 
 if (WIN32)
     set(HDF5_MAKE gmake)
